@@ -27,7 +27,7 @@ def is_followup_question(user_query, context):
     logging.info(f"2. Follow-up Detection | Cosine Similarity: {'True' if similarity >= 0.25 else 'False'} | Similarity: {similarity}")
 
     # Rule-based follow-up detection
-    ambiguous_keywords = {"it", "more", "that", "this"}
+    ambiguous_keywords = {"it", "more", "that", "this", "they", "them"}
     rule_based_followup = any(word in user_query.lower().split() for word in ambiguous_keywords)
     logging.info(f"3. Follow-up Detection | Rule-based: {'True' if rule_based_followup else 'False'}")
     
