@@ -70,9 +70,9 @@ pandas==2.2.3
 parso==0.8.4
 pexpect==4.9.0
 pillow==11.0.0
-pinecone==5.4.2
-pinecone-plugin-inference==3.1.0
+pinecone==8.0.0
 pinecone-plugin-interface==0.0.7
+pinecone-plugin-assistant==3.0.1
 platformdirs==4.3.6
 prompt_toolkit==3.0.50
 propcache==0.2.1

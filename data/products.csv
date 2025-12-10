@@ -20,7 +20,7 @@ id,created_at,name,description,price,stock
 19,2023-03-01 09:30:00,Mechanical Keyboard,Keyboard with tactile mechanical switches,109.99,85
 20,2023-03-01 09:35:00,4K Monitor,27-inch monitor with 4K resolution,399.99,35
 21,2023-03-01 09:40:00,HDMI Cable,High-speed HDMI cable,9.99,300
-22,2023-03-01 09:45:00,Ethernet Cable,Cat6 Ethernet cable,10ft,12.99,250
+22,2023-03-01 09:45:00,Ethernet Cable,Cat6 Ethernet cable 10ft,12.99,250
 23,2023-03-01 09:50:00,Desk Lamp,LED desk lamp with adjustable brightness,34.99,90
 24,2023-03-01 09:55:00,Coffee Maker,Automatic drip coffee maker,79.99,60
 25,2023-03-01 10:00:00,Air Purifier,Removes allergens and pollutants,149.99,45
