@@ -1,6 +1,8 @@
 import os
 from config import OPENAI_API_KEY
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
+from langchain_core.messages import HumanMessage
 from langchain_openai.chat_models import ChatOpenAI
 from langsmith import utils
 import logging
@@ -30,12 +32,13 @@ Please keep in mind that, certain functions and methods can only be used on some
 So, knowing the datatype of the columns is really important.
 
 If you dont know the answer, just say you dont know.
+And do not prefix the actual sql query with 'SQL query: ' and try to start the Query right away.
 
 Generate a SQL query to answer this question.
 """)
 
 # Defining the LLM that will be used to answer the user query
-model = ChatOpenAI(openai_api_key = OPENAI_API_KEY, model="gpt-3.5-turbo")
+model = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
 
 # Defining the output parser to parse the output of the LLM and exrtact the content out of the AIMessage object response
 def outputParser(response):

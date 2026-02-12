@@ -6,16 +6,16 @@
 # The generated SQL query is then run on our database
 
 from typing import Union
-
+import sys
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi import HTTPException
 import psycopg2
 from nl2sql import nl2sql_chain  # Import your NL2SQL chain
-from config import OPENAI_API_KEY
 import os
 import uvicorn
 
+sys.path.insert(0, 'RAG_Pipeline')
 app = FastAPI()
 
 # Pydantic model for input validation
@@ -37,7 +37,7 @@ async def query_db(request: QueryRequest):
     # Generate SQL query from the natural language input
     try:
         sql_query = nl2sql_chain.invoke(request.question)
-        print(sql_query)
+        print("SQL QUERY Testing: ",sql_query)
     except Exception as e:
         raise HTTPException(status_code=500, detail="Error generating SQL query.")
     
