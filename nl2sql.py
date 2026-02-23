@@ -1,12 +1,9 @@
 import os
-from config import OPENAI_API_KEY
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
-from langchain_core.messages import HumanMessage
-from langchain_openai.chat_models import ChatOpenAI
 from langsmith import utils
 import logging
-from langchain_core.runnables import RunnableLambda, RunnablePassthrough, RunnableSequence
+from langchain_core.runnables import RunnablePassthrough
 
 utils.tracing_is_enabled()
 
