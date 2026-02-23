@@ -1,0 +1,51 @@
+id,created_at,name,description,price,stock
+1,2023-03-01 08:00:00,Wireless Mouse,Ergonomic wireless mouse,25.99,150
+2,2023-03-01 08:05:00,USB-C Hub,Multi-port hub with HDMI and Ethernet,45.00,75
+3,2023-03-01 08:10:00,Bluetooth Speaker,Portable speaker with high-quality sound,55.49,60
+4,2023-03-01 08:15:00,Gaming Keyboard,Mechanical keyboard with RGB lighting,89.99,80
+5,2023-03-01 08:20:00,LED Monitor,24-inch Full HD monitor,150.00,40
+6,2023-03-01 08:25:00,Smartphone,Latest model smartphone with 128GB storage,699.99,30
+7,2023-03-01 08:30:00,Laptop Stand,Adjustable stand for laptops,29.99,120
+8,2023-03-01 08:35:00,External Hard Drive,1TB portable external hard drive,59.99,90
+9,2023-03-01 08:40:00,Webcam,HD webcam for video conferencing,39.99,110
+10,2023-03-01 08:45:00,Noise Cancelling Headphones,Over-ear headphones with active noise cancellation,129.99,50
+11,2023-03-01 08:50:00,Portable Charger,10000mAh power bank,22.49,200
+12,2023-03-01 08:55:00,Smart Watch,Fitness tracking and notifications,199.99,65
+13,2023-03-01 09:00:00,Fitness Tracker,Track your daily activity and sleep,49.99,150
+14,2023-03-01 09:05:00,Digital Camera,Compact camera with 20MP sensor,299.99,40
+15,2023-03-01 09:10:00,Bluetooth Earbuds,True wireless earbuds with charging case,79.99,100
+16,2023-03-01 09:15:00,Tablet,10-inch tablet with retina display,249.99,55
+17,2023-03-01 09:20:00,Wireless Charger,Fast charging pad for smartphones,19.99,130
+18,2023-03-01 09:25:00,Gaming Mouse,High precision gaming mouse,49.99,140
+19,2023-03-01 09:30:00,Mechanical Keyboard,Keyboard with tactile mechanical switches,109.99,85
+20,2023-03-01 09:35:00,4K Monitor,27-inch monitor with 4K resolution,399.99,35
+21,2023-03-01 09:40:00,HDMI Cable,High-speed HDMI cable,9.99,300
+22,2023-03-01 09:45:00,Ethernet Cable,Cat6 Ethernet cable 10ft,12.99,250
+23,2023-03-01 09:50:00,Desk Lamp,LED desk lamp with adjustable brightness,34.99,90
+24,2023-03-01 09:55:00,Coffee Maker,Automatic drip coffee maker,79.99,60
+25,2023-03-01 10:00:00,Air Purifier,Removes allergens and pollutants,149.99,45
+26,2023-03-01 10:05:00,Electric Kettle,1.7L electric kettle with auto shut-off,39.99,110
+27,2023-03-01 10:10:00,Vacuum Cleaner,Bagless vacuum cleaner with HEPA filter,129.99,70
+28,2023-03-01 10:15:00,Robot Vacuum,Automated vacuum with smart navigation,299.99,40
+29,2023-03-01 10:20:00,Smart Thermostat,Programmable thermostat with Wi-Fi connectivity,199.99,55
+30,2023-03-01 10:25:00,Security Camera,Indoor security camera with night vision,59.99,100
+31,2023-03-01 10:30:00,Doorbell Camera,Smart doorbell with integrated camera,149.99,65
+32,2023-03-01 10:35:00,Portable Projector,Compact projector for home theater,219.99,30
+33,2023-03-01 10:40:00,Car Charger,Dual USB car charger,14.99,200
+34,2023-03-01 10:45:00,Power Bank,20000mAh portable charger,29.99,150
+35,2023-03-01 10:50:00,USB Flash Drive,64GB high-speed flash drive,19.99,250
+36,2023-03-01 10:55:00,Memory Card,32GB SD card for cameras,15.99,180
+37,2023-03-01 11:00:00,Microphone,Condenser microphone for podcasts,89.99,85
+38,2023-03-01 11:05:00,Headset,Gaming headset with surround sound,59.99,100
+39,2023-03-01 11:10:00,Smart Light Bulb,Wi-Fi enabled LED light bulb,12.99,300
+40,2023-03-01 11:15:00,VR Headset,Immersive virtual reality headset,399.99,25
+41,2023-03-01 11:20:00,Drone,Quadcopter with HD camera,499.99,20
+42,2023-03-01 11:25:00,Action Camera,Waterproof action camera,299.99,40
+43,2023-03-01 11:30:00,Tripod,Lightweight tripod for cameras,29.99,120
+44,2023-03-01 11:35:00,Fitness Bike,Indoor stationary bike,399.99,15
+45,2023-03-01 11:40:00,Treadmill,Foldable treadmill for home use,799.99,10
+46,2023-03-01 11:45:00,Dumbbell Set,Adjustable dumbbell set for strength training,99.99,30
+47,2023-03-01 11:50:00,Yoga Mat,Non-slip yoga mat,24.99,200
+48,2023-03-01 11:55:00,Resistance Bands,Set of resistance bands for workouts,19.99,180
+49,2023-03-01 12:00:00,Smartphone Case,Durable case for smartphones,15.99,250
+50,2023-03-01 12:05:00,Wireless Earbuds,Compact wireless earbuds with charging case,59.99,140
