@@ -20,13 +20,14 @@ import os
 import logging
 from dotenv import load_dotenv
 from pinecone import Pinecone
-from langchain_openai import OpenAIEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
 # Load environment variables from .env
 load_dotenv(dotenv_path=".env")
 
 # Load API Keys safely
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 LANGSMITH_API_KEY = os.getenv("LANGSMITH_API_KEY")
 LANGSMITH_PROJECT = os.getenv("LANGSMITH_PROJECT")
@@ -46,7 +47,11 @@ logging.getLogger("pinecone").setLevel(logging.WARNING)
 logging.getLogger("pinecone_plugin_interface").setLevel(logging.WARNING)
 
 # Defining the Embedding model to be used for embedding a user query
-embeddings_model = OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=OPENAI_API_KEY)
+embeddings_model = GoogleGenerativeAIEmbeddings(
+    model="gemini-embedding-001",
+    google_api_key=GEMINI_API_KEY,
+    output_dimensionality=1536,
+)
 
 
 # Initialize Pinecone client and index

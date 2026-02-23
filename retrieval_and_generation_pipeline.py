@@ -20,10 +20,10 @@ from langsmith import utils
 import logging
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough, RunnableSequence
 from langchain_core.runnables import RunnablePassthrough
-from langchain_openai.chat_models import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableLambda
-from config import OPENAI_API_KEY, index, embeddings_model
+from config import GEMINI_API_KEY, index, embeddings_model
 
 
 # Enabling tracing in LangSmith
@@ -86,7 +86,7 @@ prompt = ChatPromptTemplate.from_template("""
 
 
 # Defining the LLM that will be used to answer the user query
-model = ChatOpenAI(openai_api_key = OPENAI_API_KEY, model="gpt-3.5-turbo")
+model = ChatGoogleGenerativeAI(model="gemini-2.5-flash", google_api_key=GEMINI_API_KEY)
 
 
 # Defining the output parser to parse the output of the LLM and exrtact the content out of the AIMessage object response

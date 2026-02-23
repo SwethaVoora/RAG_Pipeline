@@ -1,6 +1,4 @@
 import streamlit as st
-from langchain_openai import OpenAIEmbeddings
-from pinecone import Pinecone
 from config import index, embeddings_model
 from retrieval_and_generation_pipeline import rag_chain
 from helper import get_last_qa_context, store_chat_history, expand_followup_query  # Import the chain you built for retrieval
