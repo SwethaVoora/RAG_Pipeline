@@ -13,6 +13,15 @@ from langgraph.graph import StateGraph, END
 from langgraph.prebuilt import ToolNode
 
 load_dotenv()
+SYSTEM_PROMPT = """You are an expert PostgreSQL agent.
+BUSINESS RULES:
+- If asked about a product's catalog price, ALWAYS use products.price.
+- If asked about revenue or how much a user paid, ALWAYS use order_items.price_at_purchase.
+- For any user-level analysis, user identity MUST be users.id (NOT users.name).
+- users.name is only a display label and can have duplicates.
+- If asked about details about a user's orders by specifying a name, ALWAYS check if there are multiple
+    users with that same name. If yes, then send a response statingthat there are multiple users with the same name and hence cannot be used for analysis.
+Always check schemas before querying."""
 
 # --- 1. SETUP TOOLS (Same as before) ---
 db = SQLDatabase.from_uri(f"postgresql://{os.getenv('SUPABASE_USER')}:{os.getenv('SUPABASE_PASSWORD')}@{os.getenv('SUPABASE_HOST')}:{os.getenv('SUPABASE_PORT')}/{os.getenv('SUPABASE_DB')}")
@@ -30,6 +39,9 @@ def get_schema_tool(table_names: str):
 @tool
 def execute_sql_tool(sql_query: str):
     """Execute a SQL query. Input: valid SQL string."""
+    normalized = sql_query.strip().lower()
+    if not normalized.startswith("select"):
+        return "Error: only read-only SELECT queries are allowed."
     try:
         return db.run(sql_query)
     except Exception as e:
@@ -90,62 +102,54 @@ workflow.add_edge("tools", "agent") # Loop back: Tools -> Agent
 # Compile the graph
 agent_app = workflow.compile()
 
-# --- 6. RUN IT ---
-# --- 6. RUN IT ---
-if __name__ == "__main__":
-    query = "Identify the product that has generated the highest total revenue. Then, analyze the users who bought it—are they one-time shoppers, or do they tend to buy multiple items?"
-    print(f"User: {query}\n")
-    
+
+def _extract_message_text(message: BaseMessage) -> str:
+    if isinstance(message.content, str):
+        return message.content
+    if isinstance(message.content, list):
+        parts = [part.get("text", "") for part in message.content if isinstance(part, dict)]
+        return "\n".join(p for p in parts if p)
+    return str(message.content)
+
+
+def run_langgraph_agent_query(question: str) -> dict:
     initial_state = {
         "messages": [
-            SystemMessage(content="""You are an expert PostgreSQL agent.
-BUSINESS RULES:
-- If asked about a product's catalog price, ALWAYS use products.price.
-- If asked about revenue or how much a user paid, ALWAYS use order_items.price_at_purchase.
-Always check schemas before querying."""),
-            HumanMessage(content=query)
+            SystemMessage(content=SYSTEM_PROMPT),
+            HumanMessage(content=question),
         ]
     }
-    
     final_answer = ""
-    
-    # Stream the steps so you can see what's happening
-    for event in agent_app.stream(initial_state):
-        for key, value in event.items():
-            print(f"\n--- Node: {key} ---")
-            
-            # 1. Log the specific tools being executed
-            if key == "tools":
-                for msg in value['messages']:
-                    print(f"    [Action] Executed Tool: {msg.name}")
-            
-            # 2. Check if the Agent has reached its final conclusion
-            if key == "agent":
-                ai_msg = value['messages'][-1]
-                if not ai_msg.tool_calls: # If no tools are called, it has the answer
-                    # Clean the output dictionary to just get the text
-                    if isinstance(ai_msg.content, list):
-                        final_answer = ai_msg.content[0]['text']
-                    else:
-                        final_answer = ai_msg.content
 
-    print("\n" + "="*50)
+    for event in agent_app.stream(initial_state, config={"recursion_limit": 20}):
+        for key, value in event.items():
+            print(f"--- Node: {key} ---")
+
+            messages = value.get("messages", [])
+            if not messages:
+                continue
+
+            if key == "agent":
+                ai_msg = messages[-1]
+                tool_calls = getattr(ai_msg, "tool_calls", []) or []
+                if not tool_calls:
+                    final_answer = _extract_message_text(ai_msg)
+
+            if key == "tools":
+                for msg in messages:
+                    tool_name = getattr(msg, "name", None)
+                    if tool_name:
+                        print(f"    [Action] Executed Tool: {tool_name}")
+
+    return {"answer": final_answer}
+
+# --- 6. RUN IT ---
+if __name__ == "__main__":
+    # query = "Identify the product that has generated the highest total revenue. Then, analyze the users who bought it—are they one-time shoppers, or do they tend to buy multiple items?"
+    query = "Calculate the total lifetime revenue for the user Charlie Williams."
+    print(f"User: {query}\n")
+    output = run_langgraph_agent_query(query)
+    print("\n" + "=" * 50)
     print("FINAL BUSINESS INSIGHT:")
-    print("="*50)
-    print(final_answer)
-# if __name__ == "__main__":
-#     query = "Identify the product that has generated the highest total revenue. Then, analyze the users who bought it—are they one-time shoppers, or do they tend to buy multiple items?"
-#     print(f"User: {query}\n")
-    
-#     initial_state = {
-#         "messages": [
-#             SystemMessage(content="You are a SQL expert. Always check schemas before querying."),
-#             HumanMessage(content=query)
-#         ]
-#     }
-    
-#     # Stream the steps so you can see what's happening
-#     for event in agent_app.stream(initial_state):
-#         for key, value in event.items():
-#             print(f"--- Node: {key} ---")
-#             # print(value) # Uncomment to see full state details
+    print("=" * 50)
+    print(output["answer"])
